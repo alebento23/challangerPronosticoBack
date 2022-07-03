@@ -26,7 +26,8 @@ const getWeaterCity = async (city) => {
             params: {
                 q: city,
                 lang: "es",
-                appid: token
+                appid: token,
+                units: "metric"
             }
         });
 
@@ -44,7 +45,8 @@ const getForecastCity = async (city) => {
             params: {
                 q: city,
                 lang: "es",
-                appid: token
+                appid: token,
+                units: "metric"
             }
         });
 
