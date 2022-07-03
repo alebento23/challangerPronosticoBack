@@ -1,4 +1,4 @@
-const { PORT } = require("../config/config");
+const config = require("../config/config");
 exports.options = {
     routePrefix: "/documentacion",
     exposeRoute: true,
@@ -13,7 +13,7 @@ exports.options = {
             description: "api"
         }
     },
-    host: `localhost:${PORT}`,
+    host: `localhost:${config.PORT}`,
     schemas: ["http"],
     cosumes: ["application/json"],
     produces: ["application/json"]

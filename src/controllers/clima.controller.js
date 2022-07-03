@@ -1,8 +1,9 @@
 const axios = require("axios");
+const config = require("../config/config");
 
-const urlIpInfo = "";
-const urlWeaterApi = "";
-const token = "";
+const urlIpInfo = config.urlIpInfo;
+const urlWeaterApi = config.urlWeaterApi;
+const token = config.token;
 
 //paths
 const pathWeatherCity = `weather`;

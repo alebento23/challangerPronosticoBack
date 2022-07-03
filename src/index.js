@@ -1,6 +1,6 @@
 const fastify = require("fastify")({ logger: true });
 
-const PORT = require("./config/config");
+const config = require("./config/config");
 const routes = require("./routes/location.routes");
 const swagger = require("./utils/swagger");
 
@@ -25,7 +25,7 @@ fastify.get("/", (request, reply) => {
 });
 
 const start = async () => {
-    await fastify.listen(PORT);
+    await fastify.listen(config.PORT);
     fastify.log.info(`server on port ${fastify.server.address().port}`);
 };
 
