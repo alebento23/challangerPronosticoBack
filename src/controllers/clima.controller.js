@@ -1,5 +1,6 @@
 const axios = require("axios");
 const config = require("../config/config");
+const moment = require("moment");
 
 const urlIpInfo = config.urlIpInfo;
 const urlWeaterApi = config.urlWeaterApi;
@@ -50,6 +51,39 @@ const getForecastCity = async (city) => {
             }
         });
 
+        if (weatherInfo && weatherInfo.data) {
+            let datas = weatherInfo.data;
+            let days = datas.list;
+            let newlistado = [];
+            let newDays = [];
+            let count = 0;
+            let day = "";
+
+            for (let i = 0; i < days.length; i++) {
+                const element = days[i];
+                let momento = moment(element.dt_txt).format("DD/MM/YYYY");
+
+                if (day === momento) {
+                    newDays.push(element);
+
+                    if (days.length - 1 === i)
+                        newlistado[count] = {
+                            dayString: day,
+                            data: newDays
+                        };
+                } else {
+                    newlistado[count] = { dayString: day, data: newDays }; //newDays;
+
+                    count = count + 1;
+                    day = momento;
+
+                    newDays = [];
+                    newDays.push(element);
+                }
+            }
+
+            weatherInfo.data.list = newlistado;
+        }
         return weatherInfo.data;
     } catch (error) {
         console.log(error.response.data);
@@ -101,7 +135,6 @@ const climaCity = async (request, reply) => {
 const pronosticoCity = async (request, reply) => {
     try {
         const { params } = request;
-        console.log(params);
         let MyCity = {};
         if (params.city) {
             MyCity = params;
